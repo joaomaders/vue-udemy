@@ -14,12 +14,12 @@
   </head>
   <body>
     <header>
-      <h1>Vue Course Goals</h1>
+      <h1>Vue Dynamic Styling</h1>
     </header>
-    <section id="user-goal">
-      <h2>My Course Goal</h2>
-      <p>{{ outputGoal() }}</p>
-      <p>Lear mode about <a :href="vueLink" >Vue</a>.</p>
+    <section id="styling">
+      <div class="demo" :class="{active: selectedA}" @click="boxSelected('A')"></div>
+      <div class="demo" :class="{active: selectedB}" @click="boxSelected('B')"></div>
+      <div class="demo" :class="{active: selectedC}" @click="boxSelected('C')"></div>
     </section>
   </body>
 </html>
