@@ -2,7 +2,6 @@ const app = Vue.createApp({
   data() {
     return { 
       enteredGoal: '',
-      goalToDelete: '',
       goals: [] 
     };
   },
@@ -15,8 +14,8 @@ const app = Vue.createApp({
         alert("Empty imput");
       }
     },
-    deleteGoal() {
-      this.goals.pop(this.goalToDelete);
+    deleteGoal(index) {
+      this.goals.splice(index, 1);
     }
   }
 });
