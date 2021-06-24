@@ -4,7 +4,8 @@ const app = Vue.createApp({
          monsterHealth: 100,
          playerHealth: 100,
          currentRound: 0,
-         winner: null
+         winner: null,
+         logMessages: []
       };
    },
    computed: {
@@ -46,9 +47,7 @@ const app = Vue.createApp({
          this.monsterHealth = 100;
          this.winner = null;
          this.currentRound = 0;
-      },
-      playerSurrender() {
-         this.winner = 'monster';
+         this.logMessages = [];
       },
       healPlayer() {
          this.currentRound++;
@@ -58,23 +57,40 @@ const app = Vue.createApp({
          } else {
             this.playerHealth += healPower;
          }
+         this.addLogMessage('player', 'heal', healPower);
          this.attackPlayer();
       },
       attackMonster() {
          this.currentRound++;
-         this.monsterHealth -= this.getRandomValue(5, 12);
+         let attackPower = this.getRandomValue(5, 12)
+         this.monsterHealth -= attackPower;
+         this.addLogMessage('player', 'attack', attackPower);
          this.attackPlayer();
       },
       attackPlayer() {
-         this.playerHealth -= this.getRandomValue(8, 15);
+         let attackPower = this.getRandomValue(8, 15)
+         this.playerHealth -= attackPower;
+         this.addLogMessage('monster', 'attack', attackPower);
       },
       specialAttackMonster() {
          this.currentRound++;
-         this.monsterHealth -= this.getRandomValue(10, 25);
+         let attackPower = this.getRandomValue(10, 25);
+         this.monsterHealth -= attackPower;
+         this.addLogMessage('player', 'attack', attackPower);
          this.attackPlayer();
       },
       getRandomValue(min, max) {
          return Math.floor(Math.random() * (max - min)) + min;
+      },
+      playerSurrender() {
+         this.winner = 'monster';
+      },
+      addLogMessage (who, what, value) {
+         this.logMessages.unshift({
+            actionBy: who,
+            actionType: what,
+            actionValue: value
+         });
       }
    }
 });
