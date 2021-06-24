@@ -37,4 +37,5 @@ header {
 
 .demo.active {
   border-color: red;
+  background: yellow;
 }
